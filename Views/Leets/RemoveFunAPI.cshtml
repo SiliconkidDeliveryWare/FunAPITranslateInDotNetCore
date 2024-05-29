@@ -1,0 +1,52 @@
+@{
+    ViewData["Title"] = "Translator";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="~/css/FunAPIMegaMenu.css" asp-append-version="true">
+<link rel="stylesheet" href="~/css/FunAPIViewMenu.css" asp-append-version="true">
+
+@using mindsprings.Models;
+@model FunAPITranslateMultiModel;
+
+<h1>Delete Or Remove Files</h1>        
+<form class="listbg" name="removeTranslation" enctype="multipart/form-data">
+    <div class="flex flex-col" id="RemoveList">                     
+    @if (Model.QueryHasConditionData != null) { 
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Source</th>
+                    <th>Picked API</th>
+                    <th>Target</th>
+                    <th>Cool Action</th>
+                    <th>Hot Action</th>
+                    </tr>
+            </thead>
+            <tbody>
+                @foreach (var entityItem in Model.QueryHasConditionData) {
+                <tr>
+                    <td>@entityItem.textSource</td>
+                    <td>@entityItem.textAPI</td>
+                    <td>@entityItem.textTarget</td>
+                    <td>@Html.ActionLink("Delete", "RemoveFunAPI", 
+                        new {funTransID=@entityItem.Id, isFunAPIDashboard=false, showRemoveDetails=true, postRemoveDetails=false},
+                        new { style = "color: red; font-weight: bold;" })
+                    </td>
+                    <td>@using (Html.BeginForm("RemoveFunAPI", "Leets",
+                        new {funTransID = @entityItem.Id,isFunAPIDashboard = false, showRemoveDetails=false, postRemoveDetails=true}, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+  
+                            <button class="btn btn-danger" type="submit" formmethod="post" 
+                                onclick="return confirm('Delete Transaction With ID ' + @entityItem.Id + '?')">Delete</button>
+                        }
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    }
+    </div>                  
+</form>

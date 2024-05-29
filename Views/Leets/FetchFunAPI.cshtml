@@ -1,0 +1,101 @@
+@{
+    ViewData["Title"] = "Translator";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="~/css/FunAPIMegaMenu.css" asp-append-version="true">
+<link rel="stylesheet" href="~/css/FunAPIViewMenu.css" asp-append-version="true">
+
+<body onload="dashboardLoad()"></body>
+@using mindsprings.Models;
+@model FunAPITranslateMultiModel;
+
+<h1>Read Or Fetch Files</h1>
+<div class="form-inline">
+    <div class="form-group">
+        <div class="input-group">
+            <span><h5>Fun Translation</h5></span>
+            <select id="fetchTextAPI" name="fetchTextAPI" class="dropsel">
+                <option value="">Select</option>
+                <option value="Yoda">Yoda API</option>
+                <option value="Pirate">Pirate API</option>
+                <option value="Valspeak">Valspeak API</option>
+                <option value="Minion">Minion API</option>
+                <option value="Ferb-latin">Ferb-latin API</option>
+            </select>
+            <button id="getShow" type="button" class="btn btn-warning"> <a
+                    href="javascript:document.location.href='/Leets/FetchFunAPI?textAPI='+ document.getElementById('fetchTextAPI').value +'&IsDashboard=false'"
+                    style="color: white; text-decoration-line: initial">With Show URL Link</a></button>
+            <button id="getHide" type="button" class="btn btn-success"
+                onclick="javascript:document.location.href='/Leets/FetchFunAPI?textAPI='+ document.getElementById('fetchTextAPI').value + '&IsDashboard=false'">With
+                Hide URL Link</button>
+        </div>     
+    </div>
+ </div>
+
+<form class="listbg" enctype="multipart/form-data">
+    <div class="flex flex-row" id="showGetFiles">
+        @if (Model.QueryHasConditionData != null) {
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Source</th>
+                        <th>Picked API</th>
+                        <th>Target</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.QueryHasConditionData!.Count(); i++)
+                    {
+                        <tr>
+                            <td>@Model.QueryHasConditionData![i].textSource</td>
+                            <td>@Model.QueryHasConditionData[i].textAPI</td>
+                            <td>@Model.QueryHasConditionData[i].textTarget</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        <input type="text" name="textAPI" id="fetchInputTextAPI" style="display:none">
+    </div>
+
+    @for (int i = 1; i <= ViewBag.MaxPage; i++)
+    {
+        @if (ViewBag.Page == i)
+        {
+            <button class="btn btn-danger" style="width:40px; height:10px top:10px;" disabled>@i</button>
+        }
+        @if (ViewBag.Page != i)
+        {
+            <a href="@Url.Action("FetchFunAPI", new { textAPI=@Html.Raw(@ViewBag.fetchTextAPI), isFunDashboard=false, page = i })"
+            class="btn btn-info" style="width:40px; height:10px top:10px;"> @i </a>
+        }
+    }
+
+    @if (ViewBag.Page > 1)
+    {
+        <a href="@Url.Action("FetchFunAPI", new { textAPI=@Html.Raw(@ViewBag.fetchTextAPI), isFunDashboard=false, page = 1 })"
+            class="btn btn-warning" style="display:inline-block;">&le; First</a>
+        <a href="@Url.Action("FetchFunAPI", new { textAPI=@Html.Raw(@ViewBag.fetchTextAPI), isFunDashboard=false, page = ViewBag.Page - 1 })"
+            class="btn btn-warning">&lt;&lt; Prev</a>
+    }
+    @if (ViewBag.Page < ViewBag.MaxPage)
+    {
+        <a href="@Url.Action("FetchFunAPI", new { textAPI=@Html.Raw(@ViewBag.fetchTextAPI), isFunDashboard=false, page = ViewBag.Page + 1 })" 
+            class="btn btn-warning">
+            Next &gt;&gt;
+        </a>
+        <a href="@Url.Action("FetchFunAPI", new { textAPI=@Html.Raw(@ViewBag.fetchTextAPI), isFunDashboard=false, page = ViewBag.MaxPage })" 
+        class="btn btn-warning">
+            Last &ge;
+        </a>
+    }
+</form>
+
+<script>
+    //Get the user selected language for translation
+    function dashboardLoad() {
+        document.getElementById("fetchTextAPI").value = '@Html.Raw(@ViewBag.fetchTextAPI)';
+    }
+ </script>

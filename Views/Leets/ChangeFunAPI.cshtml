@@ -1,0 +1,41 @@
+@{
+    ViewData["Title"] = "Translator";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="~/css/FunAPIMegaMenu.css" asp-append-version="true">
+<link rel="stylesheet" href="~/css/FunAPIViewMenu.css" asp-append-version="true">
+
+<body onload="dashboardLoad()"></body> 
+@using mindsprings.Models;
+@model FunAPITranslateMultiModel;
+
+<h1>Update Or Change Files</h1>
+<form class="listbg" name="changeTranslation" enctype="multipart/form-data">
+    @if (Model.QueryHasConditionData != null) {  
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Source</th>
+                    <th>Picked API</th>
+                    <th>Target</th>
+                    <th>Cool Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.QueryHasConditionData!.Count(); i++) {
+                <tr>
+                    <td>@Model.QueryHasConditionData![i].textSource</td>
+                    <td>@Model.QueryHasConditionData[i].textAPI</td>
+                    <td>@Model.QueryHasConditionData[i].textTarget</td>
+                    <td>@Html.ActionLink("Change", "ChangeFunAPI",
+                        new {funTransID=@Model.QueryHasConditionData[i].Id, isFunAPIDashboard=false, showChangeDetails=true, doChangeDetails=false},
+                        new { style = "color: green; font-weight: bold;" })
+                    </td>
+                 </tr>
+                }
+            </tbody>
+        </table>
+    }                   
+</form>

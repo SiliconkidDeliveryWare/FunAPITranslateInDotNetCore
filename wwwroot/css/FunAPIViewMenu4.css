@@ -1,0 +1,161 @@
+/* Level 4 */
+@import url(https://fonts.googleapis.com/css?family=Merriweather:400,300italic|Hind:300);
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+fat {
+    margin: 0;
+    padding: 0;
+    border: 0 none;
+    position: relative;
+}
+
+htmll {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAAEFsT2yAAAACXBIWXMAAAsSAAALEgHS3X78AAAAFElEQVR4nGNhYGBwYIET////ZwAAETIDym2lzEcAAAAASUVORK5CYII=), url(https://2.bp.blogspot.com/-Kd55Z83gyvM/UpD8A6qj6CI/AAAAAAAAH20/eV8YvYCDAvE/s1600/mult-lab1.jpg);
+    background-size: 2px 2px, cover;
+    background-repeat: repeat, none;
+    background-position: 0 0;
+    min-height: 100%;
+    box-sizing: border-box;
+    font-family: hind, sans-serif;
+    font-weight: 300;
+    color: #15BFCC;
+}
+
+bodyy {
+    background: inherit;
+    height: 10vh;
+    padding-left: calc(.95vh * 1.5);
+    display: flex;
+}
+
+h7 {
+    background: rgba(13, 117, 125, .5);
+    position: relative;
+    left: 0;
+    top: 0;
+    font-size: 6vh;
+    font-family: Merriweather, serif;
+    font-weight: 400;
+    line-height: 1.5;
+    text-shadow: -3px -2px 0 #000;
+    box-shadow: 1px 0 0px rgba(255, 255, 255, .4);
+    writing-mode: vertical-lr;
+    -webkit-text-orientation: upright;
+    -moz-text-orientation: upright;
+    text-orientation: upright;
+    height: 50vh;
+    text-align: center;
+}
+
+[for='funapi'] {
+    background: #FF7361;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    font-size: 3rem;
+    width: 40px;
+    height: 80px;
+    line-height: 100px;
+    color: #444;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+navv {
+    display: flex;
+    justify-content: space-around;
+    width: calc(100% - 10vw);
+    position: fixed;
+    top: -100%;
+    transition: 600ms;
+    z-index: 1;
+}
+
+#funapi:checked ~ navv {
+    top: 0;
+    position: fixed;
+}
+
+navv a {
+    background: linear-gradient(to top, rgba(0, 0, 0, .3) 50%, rgba(21, 191, 204, .6) 51%);
+    background-size: 100% 205%;
+    background-position: 0 100%;
+    color: #fff;
+    font-family: hind;
+    font-weight: 300;
+    font-size: 2rem;
+    font-variant: small-caps;
+    text-decoration: none;
+    padding: 1rem 0;
+    writing-mode: vertical-rl;
+    -webkit-text-orientation: upright;
+    -moz-text-orientation: upright;
+    text-orientation: upright;
+    box-shadow: 0 0 1px #f0f0f0;
+    border-radius: 0 0 2rem 2rem;
+    transition: .5s;
+    height: max-content;
+    letter-spacing: -5rem;
+    transition: letter-spacing .5s .5s;
+}
+
+#funapi:checked~navv a {
+    letter-spacing: 1px;
+}
+
+navv a:hover {
+    background-position: 0 0;
+}
+
+zection {
+    background: rgba(21, 191, 204, .35);
+    background-clip: content-box;
+    font-family: Merriweather, serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 4rem;
+    text-align: center;
+    margin: auto;
+    padding: 2vmax;
+    border: 2vmax solid rgba(13, 117, 125, .5);
+}
+
+zection zpan {
+    display: block;
+}
+
+zection zp+zp {
+    font-size: 2rem;
+    padding: 0 1rem;
+}
+
+.zhide {
+    display: none;
+}
+
+.aviso {
+    position: fixed;
+    bottom: 0;
+    left: calc(9.5vh * 1.6);
+    background: #FF7361;
+    color: #fff;
+    font-family: hind;
+    font-style: normal;
+    font-size: 1rem;
+    font-weight: 300;
+    padding: .5rem;
+    border-radius: 5px 0 0;
+    box-shadow: 0 0 4px rgba(0, 0, 0, .4);
+    z-index: 100;
+}
+
+.aviso a {
+    text-decoration: none;
+    color: #000;
+}

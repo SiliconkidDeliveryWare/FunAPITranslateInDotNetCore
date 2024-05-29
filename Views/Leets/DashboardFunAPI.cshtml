@@ -1,0 +1,214 @@
+@{
+    ViewData["Title"] = "Translator";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="~/css/FunAPIMegaMenu.css" asp-append-version="true">
+<link rel="stylesheet" href="~/css/FunAPIViewMenu.css" asp-append-version="true">
+
+<body onload="dashboardLoad()"></body> 
+@using mindsprings.Models;
+@model FunAPITranslateMultiModel;
+
+<form name="uploadTranslation" id="uploadTranslation" class="split one" action="/Leets/UploadFunAPI" method="POST" enctype="multipart/form-data">
+    <div class="row">
+        <h6>Choose and Upload Translation</h6>
+        <div class="fitwidth">
+            <b>Source:</b>
+            <br />
+            <textarea id="textSource" name="textSource" rows="7.5" cols="23" placeholder="Text for translation here..." required></textarea>
+        </div>
+        <div class="fitwidth">
+            <b>Fun Translation</b>
+            <br/>
+            <select id="uploadTextAPI"  name="uploadTextAPI" class="dropsel" onchange="getUserSelectedAPILanguage(1)" required>
+                <option value="">Select</option>
+                <option value="Yoda">Yoda API</option>
+                <option value="Pirate">Pirate API</option>
+                <option value="Valspeak">Valspeak API</option>
+                <option value="Minion">Minion API</option>
+                <option value="Ferb-latin">Ferb-latin API</option>
+            </select>
+        </div>
+        <div class="fitwidth">
+            <b>Target:</b>
+            <br />
+            <textarea id="textTarget" name="textTarget" rows="7.5" cols="23" readonly></textarea>
+        </div>
+        <input id="getIsFunAPIDashboard" name="isFunAPIDashboard" type="checkbox" style="display:none" />
+        <input id="getTheTranslation" type='submit' style="display:none"/> 
+    </div>
+</form>
+
+<div class="split two">
+    <h6>Read Or Fetch Files</h6>
+    <div class="form-inline">
+        <div class="form-group">
+            <div class="input-group">
+                <span><h5>Fun Translation</h5></span>
+                <select id="fetchTextAPI"  name="fetchTextAPI" class="dropsel" onchange="getUserSelectedAPILanguage(2)">
+                    <option value="">Select</option>
+                    <option value="Yoda">Yoda API</option>
+                    <option value="Pirate">Pirate API</option>
+                    <option value="Valspeak">Valspeak API</option>
+                    <option value="Minion">Minion API</option>
+                    <option value="Ferb-latin">Ferb-latin API</option>
+                </select>
+                    <button id="getShow" type="button" class="btn btn-warning" disabled> <a
+                            href="javascript:document.location.href='/Leets/FetchFunAPI?textAPI='+ document.getElementById('fetchTextAPI').value+'&isFunAPIDashboard=True'"
+                            style="color: white; text-decoration-line: initial">With Show URL Link</a></button>
+                    <button id="getHide" type="button" class="btn btn-success" 
+                        onclick="javascript:document.location.href='/Leets/FetchFunAPI?textAPI='+ document.getElementById('fetchTextAPI').value+'&isFunAPIDashboard=true'" disabled>With Hide URL Link</button>
+            </div>
+       </div>
+    </div>                    
+    <form name="fetchTranslation"  enctype="multipart/form-data">
+        @if (Model.QueryHasConditionData != null) {  
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Source</th>
+                <th>Picked API</th>
+                <th>Target</th>
+            </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.QueryHasConditionData!.Count(); i++) {
+                <tr>
+                    <td>@Model.QueryHasConditionData![i].textSource</td>
+                    <td>@Model.QueryHasConditionData[i].textAPI</td>
+                    <td>@Model.QueryHasConditionData[i].textTarget</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        }
+        <input type="text" name="textAPI" id="fetchInputTextAPI" style="display:none">
+    </form>
+</div>
+
+<form name="changeTranslation" class="split three" method="POST" enctype="multipart/form-data">
+    <div class="flex flex-col" id="Updfiles">                     
+    <h6>Update Or Change Files</h6>
+    @if (Model.QueryHasNoConditionData != null) {  
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Source</th>
+                    <th>Picked API</th>
+                    <th>Target</th>
+                    <th>Cool Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.QueryHasNoConditionData!.Count(); i++) {
+                <tr>
+                    <td>@Model.QueryHasNoConditionData[i].textSource</td>
+                    <td>@Model.QueryHasNoConditionData[i].textAPI</td>
+                    <td>@Model.QueryHasNoConditionData[i].textTarget</td>
+                    <td>@Html.ActionLink("Change", "ChangeFunAPI", 
+                        new {funTransID=@Model.QueryHasNoConditionData[i].Id, isFunAPIDashboard=true, showChangeDetails=true, postChangeDetails=false}, 
+                        new { style = "color: green; font-weight: bold;" })
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+         } 
+    </div>                  
+</form>
+               
+<form name="removeTranslation" class="split four" enctype="multipart/form-data">
+    <div class="flex flex-col" id="RemoveList">                     
+    <h6>Delete Or Remove Files</h6>
+    @if (Model.QueryHasNoConditionData != null) { 
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Source</th>
+                    <th>Picked API</th>
+                    <th>Target</th>
+                    <th>Cool Action</th>
+                    <th>Hot Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var entityItem in Model.QueryHasNoConditionData) {
+                <tr>
+                    <td>@entityItem.textSource</td>
+                    <td>@entityItem.textAPI</td>
+                    <td>@entityItem.textTarget</td>
+                    <td>@Html.ActionLink("Delete", "RemoveFunAPI", 
+                        new {funTransID = @entityItem.Id, isFunAPIDashboard = true, showRemoveDetails=true, postRemoveDetails=false}, 
+                        new { style = "color: red; font-weight: bold;" })
+                    </td>
+                    <td>
+                        @using (Html.BeginForm("RemoveFunAPI","Leets",
+                        new {funTransID = @entityItem.Id, isFunAPIDashboard = true, showRemoveDetails=false, postRemoveDetails=true}, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("funTransID", entityItem.Id)
+
+                            <button class="btn btn-danger" type="submit" formmethod="post" 
+                                onclick="return confirm('Delete Transaction With ID ' + @entityItem.Id + '?')">Delete</button>
+                        }
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    }
+    </div>                  
+</form>
+
+
+<form id="apiForm" action="/leets/human" method="post">
+<h1>@ViewBag.Message</h1>
+    <div>
+        <input type="text" name="humanName" value="villi"/>
+        <input type="number" name="humanAge" value="32"/>
+        <input type="submit" name="tsubmit"/>        
+    </div>
+</form>
+
+
+<script>
+    //Get the user selected language for translation
+    function getUserSelectedAPILanguage(ftReadCRUDAction) {
+        if (ftReadCRUDAction == 1)
+        {
+            document.getElementById("getIsFunAPIDashboard").checked = true;
+            document.getElementById("getIsFunAPIDashboard").value = true;
+            document.getElementById("getTheTranslation").click();
+        }
+
+        if (ftReadCRUDAction == 2) {
+            const disabledFlag = (document.getElementById("fetchTextAPI").value == "");
+            //document.getElementById("getJava").disabled = disabledFlag;
+            document.getElementById("getShow").disabled = disabledFlag;
+            document.getElementById("getHide").disabled = disabledFlag;
+        }
+        //$('#uploadTranslation')[0].reset();9
+    }
+
+    function dashboardLoad(){
+        document.getElementById("textSource").innerHTML = '@Html.Raw(@ViewBag.uploadTextSource)';
+        document.getElementById("textTarget").innerHTML = '@Html.Raw(@ViewBag.uploadTextTarget)';
+        document.getElementById("uploadTextAPI").value = '@Html.Raw(@ViewBag.uploadTextAPI)';
+        document.getElementById("fetchTextAPI").value = '@Html.Raw(@ViewBag.fetchTextAPI)';
+        getUserSelectedAPILanguage(2);
+    }
+    
+@*     function displayFiles(readClick,displayDiv) {
+    if (readClick == 1) {
+    phpEchoInJS('@Html.Raw( 
+        if (Model != null || Model!.Count != 0) { 
+            foreach (FunAPITranslate x in funAPITranslates) {
+                echo $nowShowfiles->name ."/n/";                                
+            }
+        }
+    )',displayDiv)    
+    }
+ *@
+ </script>

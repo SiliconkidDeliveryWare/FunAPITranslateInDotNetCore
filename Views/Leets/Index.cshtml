@@ -1,0 +1,111 @@
+@{
+    ViewData["Title"] = "Fun API Translate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<meta charset="UTF-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+
+<link rel="stylesheet" href="~/css/FunAPIMegaMenu.css" asp-append-version="true">
+<link rel="stylesheet" href="~/css/FunAPIViewMenu.css" asp-append-version="true">
+
+<h1>Fun Translate API Mega Menu - MVC Dotnet Core</h1>
+
+<form class="split one" enctype="multipart/form-data">
+  <nav>
+    <a href="/Leets/DashboardFunAPI">Dashboard</a>
+    <a href="/Leets/UploadFunAPI">Upload</a>
+    <a href="/Leets/FetchFunAPI">Fetch</a>
+    <a href="/Leets/ChangeFunAPI">Change</a>
+    <a href="/Leets/RemoveFunAPI">Remove</a>
+    <div class="animation start-home"></div>
+  </nav>
+</form>
+
+<form class="split two">
+    <fmul>
+      <fmli class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Home</a>
+        <div class="dropdown-content">
+          <a href="/Leets/DashboardFunAPI">Dashboard</a>
+          <a href="/Leets/UploadFunAPI">Upload</a>
+          <a href="/Leets/FetchFunAPI">Fetch</a>
+          <a href="/Leets/ChangeFunAPI">Change</a>
+          <a href="/Leets/RemoveFunAPI">Remove</a>
+        </div>
+      </fmli>
+    <fmli><a href="/Leets/DashboardFunAPI">Dashboard</a></fmli>
+    <fmli><a href="/Leets/UploadFunAPI">Upload</a></fmli>
+    <fmli><a href="/Leets/FetchFunAPI">Fetch</a></fmli>
+    <fmli><a href="/Leets/ChangeFunAPI">Change</a></fmli>
+    <fmli><a href="/Leets/RemoveFunAPI">Remove</a></fmli>
+  </fmul>
+</form>
+
+<form class="split three">
+  <ul class="menu cf">
+    <li><a href="/Leets/DashboardFunAPI">Dashboard</a></li>
+    <li>
+      <a href="/Leets/Index">Home</a>
+      <ul class="submenu">
+        <li><a href="/Leets/DashboardFunAPI">Dashboard</a></li>
+        <li><a href="/Leets/UploadFunAPI">Upload</a></li>
+        <li><a href="/Leets/FetchFunAPI">Fetch</a></li>
+        <li><a href="/Leets/ChangeFunAPI">Change</a></li>
+        <li><a href="/Leets/RemoveFunAPI">Remove</a></li>
+      </ul>
+    </li>
+    <li><a href="/Leets/UploadFunAPI">Upload</a></li>
+    <li><a href="/Leets/FetchFunAPI">Fetch</a></li>
+    <li><a href="/Leets/ChangeFunAPI">Change</a></li>
+    <li><a href="/Leets/RemoveFunAPI">Remove</a></li>
+  </ul>
+</form>
+
+<form class="split four">
+  @* <h7>Fun API</h7>
+  <input class='hide' type="checkbox" id="funapi" name="tractor" />
+  <label for='funapi'>&#9776;</label>
+  <navv>
+    <a href='/Leets/DashboardFunAPI'>Dashboard</a>
+    <a href='/Leets/UploadFunAPI'>Upload</a>
+    <a href='/Leets/FetchFunAPI'>Fetch</a>
+    <a href='/Leets/ChangeFunAPI'>Change</a>
+    <a href="/Leets/RemoveFunAPI">Remove</a>
+  </navv>
+ *@  
+<div class='menu4'>
+  <div class='button main4' onclick="document.location.href='/Leets/DashboardFunAPI'">
+    <div class='line' id='l14'></div>
+    <div class='line' id='l24'></div>
+    <div class='line' id='l34'></div>
+    <div class='line'id='l44'></div>
+  </div>
+  <div class='sqContainer'>  
+    <div class='sq' id='sq1' onclick="document.location.href='/Leets/UploadFunAPI'">Upload</div>
+    <div class='sq' id='sq2' onclick="document.location.href='/Leets/FetchFunAPI'">Fetch</a><Fetch></div>
+    <div class='sq' id='sq3' onclick="document.location.href='/Leets/ChangeFunAPI'">Change</div>
+    <div class='sq' id='sq4' onclick="document.location.href='/Leets/RemoveFunAPI'">Remove</div>
+    <div class='button'></div>
+   </div>
+</div>
+
+<div class="nav5">
+  <input type="checkbox">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span> 
+    <span></span>
+    <div class="menu5">
+      <li onclick="document.location.href='/Leets/DashboardFunAPI'">Dashboard</li>
+      <li><a href="/Leets/UploadFunAPI">Upload</a></li>
+      <li><a href="/Leets/FetchFunAPI">Fetch</a></li>
+      <li onclick="document.location.href='/Leets/ChangeFunAPI'">Change</li>
+      <li onclick="document.location.href='/Leets/RemoveFunAPI'">Remove</a></li>
+    </div>
+</div>
+</form>
+
+<p>
+  By <span>Siliconkid</span>
+</p>

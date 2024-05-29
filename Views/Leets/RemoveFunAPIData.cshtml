@@ -1,0 +1,96 @@
+@{
+    ViewData["Title"] = "Translator";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="~/css/FunAPIMegaMenu.css" asp-append-version="true">
+<link rel="stylesheet" href="~/css/FunAPIViewMenu.css" asp-append-version="true">
+
+@using mindsprings.Models;
+@model FunAPITranslateMultiModel;
+
+<h1>Delete Or Remove</h1>
+<form class="listbg" name="removeTranslation" enctype="multipart/form-data">
+    <div class="flex flex-col" id="RemoveList">                     
+        @if (Model.QueryHasConditionData != null) {
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Source</th>
+                        <th>Picked API</th>
+                        <th>Target</th>
+                        <th>Hot Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Model.QueryHasConditionData![0].textSource</td>
+                        <td>@Model.QueryHasConditionData![0].textAPI</td>
+                        <td>@Model.QueryHasConditionData![0].textTarget</td>
+                        
+                        <td>@using (Html.BeginForm("RemoveFunAPI", "Leets", 
+                            new { funTransID = Model.QueryHasConditionData![0].Id, isFunAPIDashboard = @ViewBag.isFunAPIDashboard, showRemoveDetails = false, postRemoveDetails = true }, FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                
+                                <button class="btn btn-danger" type="submit"
+                                onclick="return confirm('Delete Transaction With ID ' + @Model.QueryHasConditionData![0].Id + '?')">Delete</button>
+                            }
+                        </td>
+                        @if (ViewBag.isFunAPIDashboard)
+                        {
+                            <button class="btn btn-info" type="submit" formaction="/Leets/DashboardFunAPI">Back To List</button>
+                        }
+                        else
+                        {
+                            @using (Html.BeginForm("RemoveFunAPI", "Leets", 
+                            new { isFunAPIDashboard = false, showRemoveDetails = false, postRemoveDetails = false }, FormMethod.Get))
+                            {
+                                <button class="btn btn-info" type="submit">Back To List</button>
+                            }
+                        }
+                    </tr>
+                </tbody>
+        </table>
+    }
+    </div>              
+
+    @for (int i = 1; i <= ViewBag.MaxPage; i++)
+    {
+        @if (ViewBag.Page == i)
+        {
+            <button class="btn btn-danger" style="width:40px; height:10px top:10px;" disabled>@i</button>
+        }
+        @if (ViewBag.Page != i)
+        {
+            <a href="@Url.Action("FetchFunAPI", new { textAPI=@Html.Raw(@ViewBag.fetchTextAPI), isFunDashboard=false, page = i })"
+            class="btn btn-info" style="width:40px; height:10px top:10px;"> @i </a>
+        }
+    }
+
+    @if (ViewBag.Page > 1)
+    {
+        <a href="@Url.Action("FetchFunAPI", new { textAPI=@Html.Raw(@ViewBag.fetchTextAPI), isFunDashboard=false, page = 1 })"
+            class="btn btn-warning" style="display:inline-block;">&le; First</a>
+        <a href="@Url.Action("FetchFunAPI", new { textAPI=@Html.Raw(@ViewBag.fetchTextAPI), isFunDashboard=false, page = ViewBag.Page - 1 })"
+            class="btn btn-warning">&lt;&lt; Prev</a>
+    }
+    @if (ViewBag.Page < ViewBag.MaxPage)
+    {
+        <a href="@Url.Action("FetchFunAPI", new { textAPI=@Html.Raw(@ViewBag.fetchTextAPI), isFunDashboard=false, page = ViewBag.Page + 1 })" 
+            class="btn btn-warning">
+            Next &gt;&gt;
+        </a>
+        <a href="@Url.Action("FetchFunAPI", new { textAPI=@Html.Raw(@ViewBag.fetchTextAPI), isFunDashboard=false, page = ViewBag.MaxPage })" 
+        class="btn btn-warning">
+            Last &ge;
+        </a>
+    }
+</form>
+
+<script>
+    function ckf() {
+        alert(document.getElementById("btm").formAction);
+        }
+</script>

@@ -1,0 +1,59 @@
+@{
+    ViewData["Title"] = "Translator";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="~/css/FunAPIMegaMenu.css" asp-append-version="true">
+<link rel="stylesheet" href="~/css/FunAPIViewMenu.css" asp-append-version="true">
+
+<body onload="dashboardLoad()"></body> 
+<h1>Choose and Upload Translation</h1>
+
+<form name="uploadTranslation" id="uploadTranslation" class="one" action="/Leets/UploadFunAPI" method="POST"
+    enctype="multipart/form-data">
+    <div class="row xdiv" >
+        <div class="col-sm">
+            <h5>Source:</h5>
+            <br/>
+            <textarea id="textSource" name="textSource" rows="11" cols="43" placeholder="Text for translation here..." required></textarea>
+        </div>
+        <div class="col-sm">
+            <h5>Fun Translation</h5>
+            <br/>
+            <select id="uploadTextAPI" name="uploadTextAPI" class="dropsel" onchange="getUserSelectedAPILanguage(1)" required>
+                <option value="">Select</option>
+                <option value="Yoda">Yoda API</option>
+                <option value="Pirate">Pirate API</option>
+                <option value="Valspeak">Valspeak API</option>
+                <option value="Minion">Minion API</option>
+                <option value="Ferb-latin">Ferb-latin API</option>
+            </select>
+        </div>
+        <div class="col-sm">
+            <h5>Target:</h5>
+            <br />
+            <textarea id="textTarget" name="textTarget" rows="11" cols="43" readonly></textarea>
+        </div>
+        <input id="getIsFunAPIDashboard" name="isFunAPIDashboard" type="checkbox" style="display:none" />
+        <input id="getTheTranslation" type='submit' style="display:none"/>
+    </div>
+</form>
+
+<script>
+    //Get the user selected language for translation
+    function getUserSelectedAPILanguage(ftReadCRUDAction) {
+        if (ftReadCRUDAction == 1) 
+        {
+            document.getElementById("getIsFunAPIDashboard").checked = false;
+            document.getElementById("getIsFunAPIDashboard").value = false;
+            document.getElementById("getTheTranslation").click();
+        }
+    }
+
+    function dashboardLoad(){
+        document.getElementById("textSource").innerHTML = '@Html.Raw(@ViewBag.uploadTextSource)';
+        document.getElementById("textTarget").innerHTML = '@Html.Raw(@ViewBag.uploadTextTarget)';
+        document.getElementById("uploadTextAPI").value = '@Html.Raw(@ViewBag.uploadTextAPI)';
+    }
+ </script>

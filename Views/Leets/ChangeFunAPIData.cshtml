@@ -1,0 +1,167 @@
+@{
+    ViewData["Title"] = "Translator";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="~/css/FunAPIMegaMenu.css" asp-append-version="true">
+<link rel="stylesheet" href="~/css/FunAPIViewMenu.css" asp-append-version="true">
+
+@using mindsprings.Models;
+@model FunAPITranslateMultiModel;
+
+<h1>Choose and Change Translation</h1>
+<form name="uploadTranslation" id="uploadTranslation" action="/Leets/ChangeFunAPI" method="POST" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="fitwidth">
+            <h5>Source:</h5>
+            <br />
+            <textarea id="textSource" name="textSource" rows="8" cols="43" placeholder="Text for translation here..." required></textarea>
+        </div>
+        <div class="fitwidth">
+            <h5>Fun Translation</h5>
+            <br/>
+            <select id="changeTextAPI"  name="changeTextAPI" class="dropsel"required>
+                <option value="">Select</option>
+                <option value="Yoda">Yoda API</option>
+                <option value="Pirate">Pirate API</option>
+                <option value="Valspeak">Valspeak API</option>
+                <option value="Minion">Minion API</option>
+                <option value="Ferb-latin">Ferb-latin API</option>
+            </select>
+        </div>
+        <div class="fitwidth">
+            <h5>Target:</h5>
+            <br />
+            <textarea id="textTarget" name="textTarget" rows="8" cols="43" readonly></textarea>
+        </div>
+        <input id="getFunTransID" name="funTransID" type='text' style="display:none"/> 
+        <input id="getIsFunAPIDashboard" name="isFunAPIDashboard" type='checkbox' style="display:none" />
+        <input id="getShowChangeDetails" name="showChangeDetails" type='checkbox' style="display:none" />
+        <input id="getPostChangeDetails" name="postChangeDetails" type='checkbox' style="display:none" />
+
+        <input id="getTheTranslation" type='submit' style="display:none"/> 
+    </div>
+</form>
+               
+<form id="changeTranslation" name="changeTranslation" enctype="multipart/form-data">
+    <h1>Update Or Change</h1>
+    <div class="flex flex-col listbg" id="RemoveList">
+        @if (Model.QueryHasConditionData != null) {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Source</th>
+                    <th>Picked API</th>
+                    <th>Target</th>
+                    <th>Hot Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.QueryHasConditionData![0].textSource</td>
+                    <td>@Model.QueryHasConditionData![0].textAPI</td>
+                    <td>@Model.QueryHasConditionData![0].textTarget</td>
+                    <td><button class="btn btn-info" type="button"
+                            onclick="getFunAPINewTranslationAndUpdate(@Model.QueryHasConditionData![0].Id),@ViewBag.isFunAPIDashboard">Change</button>
+                    </td>
+                </tr>
+                    @if (ViewBag.isFunAPIDashboard)
+                    {
+                        <button class="btn btn-info" type="submit" formaction="/Leets/DashboardFunAPI">Back To List</button>
+                    }
+                    else
+                    {
+                       @using (Html.BeginForm("ChangeFunAPI", "Leets", 
+                       new { isFunAPIDashboard = false, showChangeDetails = false, postChangeDetails = false }, FormMethod.Get))
+                            {
+                                <button class="btn btn-info" type="submit">Back To List</button>
+                            }
+                    }
+                </tbody>
+        </table>
+    }
+    </div>                  
+
+    @for (int i = 1; i <= ViewBag.MaxPage; i++)
+    {
+        @if (ViewBag.Page == i)
+        {
+            <button class="btn btn-danger" style="width:40px; height:10px top:10px;" disabled>@i</button>
+        }
+        @if (ViewBag.Page != i)
+        {
+            <a href="@Url.Action("FetchFunAPI", new { textAPI=@Html.Raw(@ViewBag.fetchTextAPI), isFunDashboard=false, page = i })"
+            class="btn btn-info" style="width:40px; height:10px top:10px;"> @i </a>
+        }
+    }
+
+    @if (ViewBag.Page > 1)
+    {
+        <a href="@Url.Action("FetchFunAPI", new { textAPI=@Html.Raw(@ViewBag.fetchTextAPI), isFunDashboard=false, page = 1 })"
+            class="btn btn-warning" style="display:inline-block;">&le; First</a>
+        <a href="@Url.Action("FetchFunAPI", new { textAPI=@Html.Raw(@ViewBag.fetchTextAPI), isFunDashboard=false, page = ViewBag.Page - 1 })"
+            class="btn btn-warning">&lt;&lt; Prev</a>
+    }
+    @if (ViewBag.Page < ViewBag.MaxPage)
+    {
+        <a href="@Url.Action("FetchFunAPI", new { textAPI=@Html.Raw(@ViewBag.fetchTextAPI), isFunDashboard=false, page = ViewBag.Page + 1 })" 
+            class="btn btn-warning">
+            Next &gt;&gt;
+        </a>
+        <a href="@Url.Action("FetchFunAPI", new { textAPI=@Html.Raw(@ViewBag.fetchTextAPI), isFunDashboard=false, page = ViewBag.MaxPage })" 
+        class="btn btn-warning">
+            Last &ge;
+        </a>
+    }
+</form>
+
+<form name="removeTranslation" enctype="multipart/form-data">
+    <div class="flex flex-col listbg" id="RemoveList">                     
+    <h1>Update Or Change</h1>
+    @if (Model != null) { 
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Source</th>
+                    <th>Picked API</th>
+                    <th>Target</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.QueryHasConditionData![0].textSource</td>
+                    <td>@Model.QueryHasConditionData![0].textAPI</td>
+                    <td>@Model.QueryHasConditionData![0].textTarget</td>
+                </tr>
+            </tbody>
+        </table>
+    }
+    </div>                  
+</form>
+
+<script>
+    //Get the user selected language for translation
+    function getFunAPINewTranslationAndUpdate(jsGetFunTransID, jsGetIsFunAPIDashboard) {
+        let changeResult = confirm('Change Transaction With ID ' + jsGetFunTransID + '?')
+        if (changeResult === true) {
+            document.getElementById("getFunTransID").value = jsGetFunTransID;
+            document.getElementById("getIsFunAPIDashboard").checked = jsGetIsFunAPIDashboard;
+          
+            document.getElementById("getShowChangeDetails").checked = false;
+            document.getElementById("getShowChangeDetails").value = false;
+            document.getElementById("getPostChangeDetails").checked = true;
+            document.getElementById("getPostChangeDetails").value = true;
+          
+            document.getElementById("getTheTranslation").click();
+        }        
+    }
+
+
+    function dashboardLoad(){
+        document.getElementById("textSource").innerHTML = '@Html.Raw(@ViewBag.uploadTextSource)';
+        document.getElementById("textTarget").innerHTML = '@Html.Raw(@ViewBag.uploadTextTarget)';
+        document.getElementById("changeTextAPI").value = '@Html.Raw(@ViewBag.changeTextAPI)';
+    }
+ </script>

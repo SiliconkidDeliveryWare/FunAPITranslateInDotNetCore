@@ -1,0 +1,83 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = mindsprings
+build_property.RootNamespace = mindsprings
+build_property.ProjectDir = C:\Users\siliconkid\mindsprings\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\siliconkid\mindsprings
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/siliconkid/mindsprings/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/siliconkid/mindsprings/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/siliconkid/mindsprings/Views/Leets/ChangeFunAPI.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVldHNcQ2hhbmdlRnVuQVBJLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/siliconkid/mindsprings/Views/Leets/ChangeFunAPIData.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVldHNcQ2hhbmdlRnVuQVBJRGF0YS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/siliconkid/mindsprings/Views/Leets/DashboardFunAPI.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVldHNcRGFzaGJvYXJkRnVuQVBJLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/siliconkid/mindsprings/Views/Leets/FetchFunAPI.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVldHNcRmV0Y2hGdW5BUEkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/siliconkid/mindsprings/Views/Leets/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVldHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/siliconkid/mindsprings/Views/Leets/RemoveFunAPI.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVldHNcUmVtb3ZlRnVuQVBJLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/siliconkid/mindsprings/Views/Leets/RemoveFunAPIData.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVldHNcUmVtb3ZlRnVuQVBJRGF0YS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/siliconkid/mindsprings/Views/Leets/UploadFunAPI.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVldHNcVXBsb2FkRnVuQVBJLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/siliconkid/mindsprings/Views/Leets/Welcome.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVldHNcV2VsY29tZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/siliconkid/mindsprings/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/siliconkid/mindsprings/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/siliconkid/mindsprings/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/siliconkid/mindsprings/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/siliconkid/mindsprings/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-ige9sf2llr
