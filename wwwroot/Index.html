@@ -1,14 +1,24 @@
-@{
-    ViewData["Title"] = "Fun API Translate";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+  '@Html.Raw(ViewData["Title"] = "Fun API Translate")';
+  <!DOCTYPE html>
+<html>
+<head>
+
+  '@Html.Raw(ViewData["Title"] = "Fun API Translate")';
+  Layout = "/Views/Shared/_Layout.cshtml";
+
+  <meta charset="utf-8" />
+  <title></title>
+
 <meta charset="UTF-8"> 
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 
-<link rel="stylesheet" href="~/css/FunAPIMegaMenu.css" asp-append-version="true">
-<link rel="stylesheet" href="~/css/FunAPIViewMenu.css" asp-append-version="true">
+<link rel="stylesheet" href="/css/FunAPIMegaMenu.css" asp-append-version="true">
+<link rel="stylesheet" type="text/css" href="/css/FunAPIViewMenu.css" asp-append-version="true">
 
 <h1>Fun Translate API Mega Menu - MVC Dotnet Core</h1>
+
+</head>
+<body>
 
 <form class="split one" enctype="multipart/form-data">
   <nav>
@@ -98,3 +108,6 @@
 <p>
   By <span>Siliconkid</span>
 </p>
+</body>
+
+</html>

@@ -13,21 +13,27 @@ var app = builder.Build();
     app.UseHsts();
 }
 
-//app.UseHttpsRedirection();
+//Setting the Default Files
+app.UseDefaultFiles();
+
+//Adding Static Files Middleware Component to serve the static files
 app.UseStaticFiles();
+
+//app.UseHttpsRedirection();
 
 app.UseRouting();
 
 app.UseAuthorization(); 
 
 app.MapControllerRoute(
+    name: "default", 
+    pattern: "Leets/Index",
+    defaults: new { controller = "Leets", action = "Index"});
+
+app.MapControllerRoute(
     name: "LeetWelcome",
     pattern: "{controller=Leets}/{action=Welcome}");
 
-app.MapControllerRoute(
-    name: "default", 
-    pattern: "Leets/Translatefunapi",
-    defaults: new { controller = "Leets", action = "GetSavedFunTranslation"});
 
-
+//This will Run the Application
 app.Run(); 

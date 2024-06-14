@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\MSFunAPICRUDTest.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\siliconkid\\MSFunAPICRUDTest\\wwwroot\\Index.html",
+      "PackagePath": "staticwebassets\\Index.html"
+    },
+    {
       "Id": "C:\\Users\\siliconkid\\MSFunAPICRUDTest\\wwwroot\\css\\FunAPIMegaMenu.css",
       "PackagePath": "staticwebassets\\css\\FunAPIMegaMenu.css"
     },

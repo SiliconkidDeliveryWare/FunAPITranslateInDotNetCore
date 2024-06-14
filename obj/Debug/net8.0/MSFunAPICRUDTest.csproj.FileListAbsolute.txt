@@ -43,6 +43,7 @@ C:\Users\siliconkid\MSFunAPICRUDTest\obj\Debug\net8.0\MSFunAPICRUDTest.csproj.Co
 C:\Users\siliconkid\MSFunAPICRUDTest\obj\Debug\net8.0\MSFunAPICRUDTest.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\siliconkid\MSFunAPICRUDTest\obj\Debug\net8.0\MSFunAPICRUDTest.RazorAssemblyInfo.cache
 C:\Users\siliconkid\MSFunAPICRUDTest\obj\Debug\net8.0\MSFunAPICRUDTest.RazorAssemblyInfo.cs
+C:\Users\siliconkid\MSFunAPICRUDTest\obj\Debug\net8.0\MSFunAPICRUDTest.sourcelink.json
 C:\Users\siliconkid\MSFunAPICRUDTest\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\siliconkid\MSFunAPICRUDTest\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\siliconkid\MSFunAPICRUDTest\obj\Debug\net8.0\staticwebassets\msbuild.MSFunAPICRUDTest.Microsoft.AspNetCore.StaticWebAssets.props

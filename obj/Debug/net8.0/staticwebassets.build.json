@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "YClWl80p5a6Wu3YH/It7HhOMumsT0YsstLYdwSINmvE=",
+  "Hash": "KMLa/mk96xp6dmCkGPKBFHhp5bR5ZdJcrwEcqVdcZ9w=",
   "Source": "MSFunAPICRUDTest",
   "BasePath": "_content/MSFunAPICRUDTest",
   "Mode": "Default",
@@ -148,6 +148,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\siliconkid\\MSFunAPICRUDTest\\wwwroot\\Index.html",
+      "SourceId": "MSFunAPICRUDTest",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\siliconkid\\MSFunAPICRUDTest\\wwwroot\\",
+      "BasePath": "_content/MSFunAPICRUDTest",
+      "RelativePath": "Index.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Index.html"
     },
     {
       "Identity": "C:\\Users\\siliconkid\\MSFunAPICRUDTest\\wwwroot\\js\\site.js",

@@ -7,8 +7,8 @@
 <link rel="stylesheet" href="~/css/FunAPIMegaMenu.css" asp-append-version="true">
 <link rel="stylesheet" href="~/css/FunAPIViewMenu.css" asp-append-version="true">
 
-<body onload="dashboardLoad()"></body>
-@using mindsprings.Models;
+<body id="fetchView" onload="dashboardLoad()"></body>
+//@using mindsprings.Models;
 @model FunAPITranslateMultiModel;
 
 <h1>Read Or Fetch Files</h1>
@@ -30,13 +30,18 @@
             <button id="getHide" type="button" class="btn btn-success"
                 onclick="javascript:document.location.href='/Leets/FetchFunAPI?textAPI='+ document.getElementById('fetchTextAPI').value + '&IsDashboard=false'">With
                 Hide URL Link</button>
-        </div>     
+            <div class="form-control d-flex justify-content-end">
+            <input id="fetchSearch" type="search" onkeyup='saveValue(this); dashboardLoad()'>
+            <button type="button" class="btn btn-primary" onchange="getSearchDataFromServer()">Search</button>
+            </div>
+        </div>
     </div>
  </div>
 
-<form class="listbg" enctype="multipart/form-data">
+<form id="fetchViewFormDiv" class="listbg" enctype="multipart/form-data" action="/Leets/FetchFunAPI" method="GET">
     <div class="flex flex-row" id="showGetFiles">
-        @if (Model.QueryHasConditionData != null) {
+    @if (Model.QueryHasConditionData != null) 
+        {
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -58,6 +63,8 @@
             </table>
         }
         <input type="text" name="textAPI" id="fetchInputTextAPI" style="display:none">
+        <input id="getIsFunAPIDashboard" name="isFunAPIDashboard" type="checkbox" value=false checked=false style="display:none"/>
+        <input id="getSearchFromServer" type='submit' style="display:none"/> 
     </div>
 
     @for (int i = 1; i <= ViewBag.MaxPage; i++)
@@ -68,34 +75,114 @@
         }
         @if (ViewBag.Page != i)
         {
-            <a href="@Url.Action("FetchFunAPI", new { textAPI=@Html.Raw(@ViewBag.fetchTextAPI), isFunDashboard=false, page = i })"
+            <a href="@Url.Action("FetchFunAPI", new { textAPI=@Html.Raw(@ViewBag.fetchTextAPI), isFunDashboard=false, startPage = i })"
             class="btn btn-info" style="width:40px; height:10px top:10px;"> @i </a>
         }
     }
 
     @if (ViewBag.Page > 1)
     {
-        <a href="@Url.Action("FetchFunAPI", new { textAPI=@Html.Raw(@ViewBag.fetchTextAPI), isFunDashboard=false, page = 1 })"
+        <a href="@Url.Action("FetchFunAPI", new { textAPI=@Html.Raw(@ViewBag.fetchTextAPI), isFunDashboard=false, startPage = 1 })"
             class="btn btn-warning" style="display:inline-block;">&le; First</a>
-        <a href="@Url.Action("FetchFunAPI", new { textAPI=@Html.Raw(@ViewBag.fetchTextAPI), isFunDashboard=false, page = ViewBag.Page - 1 })"
+        <a href="@Url.Action("FetchFunAPI", new { textAPI=@Html.Raw(@ViewBag.fetchTextAPI), isFunDashboard=false, startPage = ViewBag.Page - 1 })"
             class="btn btn-warning">&lt;&lt; Prev</a>
     }
     @if (ViewBag.Page < ViewBag.MaxPage)
     {
-        <a href="@Url.Action("FetchFunAPI", new { textAPI=@Html.Raw(@ViewBag.fetchTextAPI), isFunDashboard=false, page = ViewBag.Page + 1 })" 
+        <a href="@Url.Action("FetchFunAPI", new { textAPI=@Html.Raw(@ViewBag.fetchTextAPI), isFunDashboard=false, startPage = ViewBag.Page + 1 })"
             class="btn btn-warning">
             Next &gt;&gt;
         </a>
-        <a href="@Url.Action("FetchFunAPI", new { textAPI=@Html.Raw(@ViewBag.fetchTextAPI), isFunDashboard=false, page = ViewBag.MaxPage })" 
+        <a href="@Url.Action("FetchFunAPI", new { textAPI=@Html.Raw(@ViewBag.fetchTextAPI), isFunDashboard=false, startPage = ViewBag.MaxPage })"
         class="btn btn-warning">
             Last &ge;
         </a>
     }
 </form>
 
+
 <script>
     //Get the user selected language for translation
+    function getSearchDataFromServer() {
+        document.getElementById("getIsFunAPIDashboard").checked = true;
+        document.getElementById("getIsFunAPIDashboard").value = true;
+        document.getElementById("getSearchFromServer").click();
+    }
+
+
     function dashboardLoad() {
         document.getElementById("fetchTextAPI").value = '@Html.Raw(@ViewBag.fetchTextAPI)';
+        document.getElementById("fetchSearch").value = getSavedValue("fetchSearch");
+        
+        if (document.getElementById("fetchSearch").value != "")
+            document.getElementById("fetchSearch").focus();
+        
+        if (document.getElementById("FVTable"))
+            document.getElementById('showGetFiles').removeChild(document.getElementById("FVTable"));
+
+        var fetchViewTable = document.createElement('table');
+        var fetchViewTHead = document.createElement('thead');
+        //first row of the table
+        var fetchViewTHeadTR = document.createElement('tr');
+        var fetchViewTHeadTH1 = document.createElement('th');
+        var fetchViewTHeadTH2 = document.createElement('th');
+        var fetchViewTHeadTH3 = document.createElement('th');
+        var fetchViewTBody = document.createElement('tbody');    
+        
+        fetchViewTable.className = "table table-striped";
+        fetchViewTable.id="FVTable";
+        fetchViewTHeadTH1.innerHTML = 'Source';
+        fetchViewTHeadTH2.innerHTML = 'Picked API';
+        fetchViewTHeadTH3.innerHTML = 'Target';
+
+        fetchViewTHeadTR.appendChild(fetchViewTHeadTH1);
+        fetchViewTHeadTR.appendChild(fetchViewTHeadTH2);
+        fetchViewTHeadTR.appendChild(fetchViewTHeadTH3);
+
+        fetchViewTHead.appendChild(fetchViewTHeadTR);
+        fetchViewTable.appendChild(fetchViewTHead);
+     
+        @if (Model.QueryHasConditionData != null)
+        { 
+            @for (int i = 0; i < Model.QueryHasConditionData!.Count(); i++)
+            {
+            <text>
+                if ('@(Model.QueryHasConditionData![i].textSource)'.toLowerCase().includes(getSavedValue("fetchSearch").toLowerCase())) {
+                var fetchViewTBodyTR = document.createElement('tr');
+                var fetchViewTBodyTD1 = document.createElement('td');
+                var fetchViewTBodyTD2 = document.createElement('td');
+                var fetchViewTBodyTD3 = document.createElement('td');
+
+                fetchViewTBodyTD1.innerHTML = '@(Model.QueryHasConditionData![i].textSource)';
+                fetchViewTBodyTD2.innerHTML = '@(Model.QueryHasConditionData![i].textAPI)';
+                fetchViewTBodyTD3.innerHTML = '@(Model.QueryHasConditionData![i].textTarget)';
+
+                fetchViewTBodyTR.appendChild(fetchViewTBodyTD1);
+                fetchViewTBodyTR.appendChild(fetchViewTBodyTD2);
+                fetchViewTBodyTR.appendChild(fetchViewTBodyTD3);
+                fetchViewTBody.appendChild(fetchViewTBodyTR);     
+            }
+            </text>
+            }
+        }
+        fetchViewTable.appendChild(fetchViewTBody);
+        document.getElementById('showGetFiles').appendChild(fetchViewTable);
     }
+
+
+    
+    function saveValue(e) {
+        var id = e.id;
+        var val = e.value;
+        localStorage.setItem(id, val);
+    }
+
+    function getSavedValue(v) {
+        if (!localStorage.getItem(v)) {
+            return "";
+        }
+        return localStorage.getItem(v);
+        }        
+
+
  </script>

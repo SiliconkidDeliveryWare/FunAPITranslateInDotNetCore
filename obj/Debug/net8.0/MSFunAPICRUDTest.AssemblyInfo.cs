@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MSFunAPICRUDTest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+840b1857709ae343f67b47e08d06a3f21c7915db")]
 [assembly: System.Reflection.AssemblyProductAttribute("MSFunAPICRUDTest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MSFunAPICRUDTest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

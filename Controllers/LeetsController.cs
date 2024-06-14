@@ -6,42 +6,12 @@ using Newtonsoft.Json;
 
 namespace MSFunAPICRUDTest;
 
-/* public class FunAPIHub : Hub
-{
-    public async Task TaskCompleted(int id)
-    {
-        await Clients.All.SendAsync("Completed", id);
-    }
- */    /* public Task Send(string funapimessage)
-    {
-       return  Clients.Caller.SendAsync("Notify",funapimessage);
-        //await Clients.Others.SendAsync("Receive", $"Добавлено: {product} в {DateTime.Now.ToShortTimeString()}");
-    
-    await HubContext.Clients.All.SendAsync("Notify", $"Home page loaded at: {DateTime.Now}");
-        var uzer = HubContext.Clients.User;
-        await HubContext.Clients.All.SendAsync("ReceiveMessage", "Updated!");
-    }
-
-    public override Task OnConnectedAsync()
-    {
-        var userName = Context!.User!.Identity!.Name;
-        Clients.Caller.SendAsync("ReceiveMessage", $"Welcome, {userName}!");
-        return base.OnConnectedAsync();
-    } */
-//}
-
 public class LeetsController : Controller
 {
-    /*    private readonly IHubContext<FunAPIHub> HubContext;
-
-       public LeetsController(IHubContext<FunAPIHub> hubcontext)
-       {
-           HubContext = hubcontext;
-       }
-    */
     static readonly HttpClient client = new HttpClient();
     ApplicationContext FunAPITranslateDb = new ApplicationContext();
     FunAPITranslateMultiModel ModelMultiFunAPITranslate = new FunAPITranslateMultiModel();
+
 
     public IActionResult Index()
     {
@@ -50,6 +20,7 @@ public class LeetsController : Controller
 
         return View();
     }
+
 
     [HttpGet]
     [Route("/leets/welcome/{takename?}")]
@@ -121,7 +92,7 @@ public class LeetsController : Controller
 
     public async Task<IActionResult> DashboardFunAPI()
     {
-        await FetchFunAPIData("", true, 0);
+        await FetchFunAPIData("", true, 0, "");
         return View(ModelMultiFunAPITranslate);
     }
 
@@ -144,10 +115,10 @@ public class LeetsController : Controller
         return View();
     }
 
-    public async Task<IActionResult> FetchFunAPI(string? textAPI, bool isFunAPIDashboard, int page = 1)
+    public async Task<IActionResult> FetchFunAPI(string? textAPI, string? searchText, bool isFunAPIDashboard, int startPage = 1)
     {
         ViewBag.fetchTextAPI = textAPI;
-        await FetchFunAPIData(textAPI, isFunAPIDashboard, page);
+        await FetchFunAPIData(textAPI, isFunAPIDashboard, startPage, searchText);
 
         if (isFunAPIDashboard)
         {
@@ -169,7 +140,7 @@ public class LeetsController : Controller
         if (postChangeDetails)
             await ChangeFunAPIData(textSource, changeTextAPI, funTransID);
 
-        await FetchFunAPIData(changeTextAPI, isFunAPIDashboard, 0);
+        await FetchFunAPIData(changeTextAPI, isFunAPIDashboard, 0, "");
 
         if (isFunAPIDashboard)
             return View("DashboardFunAPI", ModelMultiFunAPITranslate);
@@ -189,7 +160,7 @@ public class LeetsController : Controller
         if (postRemoveDetails)
             await RemoveFunAPIData(funTransID);
 
-        await FetchFunAPIData(textAPI, isFunAPIDashboard, 0);
+        await FetchFunAPIData(textAPI, isFunAPIDashboard, 0, "");
 
         if (isFunAPIDashboard)
             return View("DashboardFunAPI", ModelMultiFunAPITranslate);
@@ -237,7 +208,7 @@ public class LeetsController : Controller
         }
     }
 
-    public async Task FetchFunAPIData(string? textAPI, Boolean isFunAPIDashboard, int page)
+    public async Task FetchFunAPIData(string? textAPI, Boolean isFunAPIDashboard, int startPage, string? searchText)
     {
         await Task.Delay(TimeSpan.FromMicroseconds(1));
         ViewBag.fetchedData = "Yes";
@@ -254,11 +225,14 @@ public class LeetsController : Controller
         else
             ModelMultiFunAPITranslate.QueryHasConditionData = FunAPITranslateDb.FunAPITranslates.ToList();
 
+        if (searchText != "" && searchText != null) 
+        ModelMultiFunAPITranslate.QueryHasConditionData = ModelMultiFunAPITranslate.QueryHasConditionData.Where(f => f.textSource!.Contains(searchText, StringComparison.OrdinalIgnoreCase) || f.textTarget!.Contains(searchText, StringComparison.OrdinalIgnoreCase) || f.textAPI!.Contains(searchText, StringComparison.OrdinalIgnoreCase)).ToList();
+
         const int PageSize = 4;
         var count = ModelMultiFunAPITranslate.QueryHasConditionData.Count();
-        ModelMultiFunAPITranslate.QueryHasConditionData = ModelMultiFunAPITranslate.QueryHasConditionData.Skip((page - 1) * PageSize).Take(PageSize).ToList();
-        ViewBag.MaxPage = (count / PageSize) - (count % PageSize == 0 ? 1 : 0);
-        ViewBag.Page = page;
+        ModelMultiFunAPITranslate.QueryHasConditionData = ModelMultiFunAPITranslate.QueryHasConditionData.Skip((startPage - 1) * PageSize).Take(PageSize).ToList();
+        ViewBag.MaxPage = (count / PageSize) + (count % PageSize == 0 ? 0 : 1);
+        ViewBag.Page = startPage;
     }
 
 
