@@ -190,8 +190,6 @@ public class LeetsController : Controller
 
             ViewBag.uploadTextTarget = (objFunResult.contents.translated).ToString();
         }
-        //string html = "<h1>" + "Hello World!" + "<h1>";
-        //return Content("<h1>" + "Hello World!" + "<h1>", "text/html");
     }
 
 
