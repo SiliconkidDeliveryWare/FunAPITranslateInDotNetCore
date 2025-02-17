@@ -1,12 +1,6 @@
-# KutShut - FunAPI Translation :
+# KutShut - FunAPI Translation
 
-# C# .NET MVC CRUD Web Application
-
-ASP.NET Core MVC is a robust framework that enables developers to build scalable web applications using the Model-View-Controller design pattern.
-
-Join me on this journey in this detailed guide, to discover how to build a web application from scratch using ASP.NET Core MVC.
-
-This step-by-step guide is designed to help you understand the key concepts and best practices of the framework.
+### C# .NET MVC CRUD Web Application
 
 ---
 
